@@ -17,7 +17,7 @@ Integrations Directory
 Unified and split diffs
 Email notifications
 Option to subscribe someone to notifications by @ mentioning them.
-Emojis[62]
+Emojis
 GitHub Pages: small websites can be hosted from public repositories on GitHub. 
 
 Visualization of geospatial data
