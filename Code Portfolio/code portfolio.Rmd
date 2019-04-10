@@ -1,0 +1,264 @@
+---
+title: "Code Portfolio"
+author: "Ming Chen"
+date: "2019/4/01"
+output: html_document
+---
+
+## Data Import
+
+```{r}
+getwd()
+##returns an absolute filepath representing the current working directory of the R process
+
+setwd(dir = )
+##returns the current directory before the change, and dir is to specify a working directory.
+
+ls()
+##see the objects from the working space and the relationship between classes.
+
+save()
+##save an external representationof objects to the specified file.
+
+save.image()
+##save current work space.
+
+load()
+##load file or reserved dataset.
+
+rm()
+##remove the specified objects.it can also be remove()
+
+write.table()
+##print the required argument x to a .txt file.
+
+read.table()
+##using R to read a .txt file.
+
+read_csv()
+##reads csv file.
+
+read_log()
+##reads log files.
+
+parse_*()
+##returns the parsed but unevaluated expressions in a list.
+
+charToRaw()
+##converts a length-one character string to raw bytes. It does so without taking into account any declared encoding
+
+guess_encoding()
+##help read data
+
+parse_factor()
+##similar to factor(), general warnings.
+
+parse_datetime()
+##parse date and time
+
+parse_date()
+##parse the exact date
+
+guess_parser()
+##the input string must be a single number with no leading or trailing characters
+
+problems()
+##generate problems from the file
+
+tail()
+##returns the last n rows of a matrix or data frame in R.
+
+```
+
+## Data Wrangling
+
+```{r}
+as_tibble()
+##transfer a data frame to tibble
+
+tibble()
+##creat new tibble, also as tribble()
+
+str()
+##display the internal structure of an R object, a diagnostic function and an alternative to summary
+
+as.data.frame()
+##when older functions don???t work with tibbles, use this function
+
+mutate()
+##adds new variables and preserves existing ones
+
+gather()
+##generate the parameters
+
+dplyr::select()
+##gater columns
+
+spread()
+##spread a key-value pair across multiple columns.
+
+separate()
+##separate One Column Into Multiple Columns and give either regular expression or a vector of character positions.
+
+unite()
+##combines multiple columns into a single column
+
+fill()
+##fills the missing values of rows and columns.
+
+cbind()
+##take a sequence of vector, matrix or data-frame arguments and combine by columns or rows, respectively.
+
+rbind()
+##Take a sequence of vector, matrix or data-frame arguments and combine by columns or rows, respectively
+
+matrix()
+##creates a matrix form a single vector of data
+
+data.frame()
+##creat data frames
+
+head()
+##make us see the first row of the data frame
+
+summary()
+##same as str()
+
+names()
+##change the name of the column of a data frame
+
+subset()
+##Return subsets of vectors, matrices or data frames which meet conditions.
+
+with()
+##save typing with columns
+
+```
+
+## Data Visualization
+
+```{r}
+ggplot2()
+##create graphs that represent both univariate and multivariate numerical and categorical data in a straightforward manner. 
+
+geom_point
+##The point geom is used to create scatterplots. The scatterplot is most useful for displaying the relationship between two continuous variables.
+
+geom_boxplot
+##he boxplot compactly displays the distribution of a continuous variable.
+
+facet_wrap()
+##wraps a sequence of panels into the second one. This is generally a better use of screen space than facet_grid()
+
+facet_grid()
+##split up your data by one or more variables and plot the subsets of data together.
+
+geom_bar()
+##makes the height of the bar proportional to the number of cases in each group 
+
+stat_count()
+##must not be uesd with y aesthetic error in bar graph
+
+stat_summary()
+##operates on unique x
+
+stat_bin()
+##Missing values can be currently silently dropped.
+
+geom_col()
+##use when heights of the bars to represent values in the data
+
+aes()
+##aesthetic mappings describe how variables in the data are mapped to visual properties (aesthetics) of geoms.
+
+coord_quickmap()
+##projects a portion of the earth, which is approximately spherical.
+
+coord_flip()
+##Flipped cartesian coordinates so that horizontal becomes vertical, and vertical, horizontal. This is primarily useful for converting geoms and statistics which display y conditional on x, to x conditional on y.
+
+coord_polar()
+##ariable to map angle to x or y
+
+fivenum()
+##Returns Tukey's five number summary (minimum, lower-hinge, median, upper-hinge, maximum) for the input data.
+
+boxplot()
+##boxplots can be created for individual variables or for variables by group. 
+
+hist()
+##computes a histogram of the given data values.
+
+rug()
+##adds a rug representation (1-d plot) of the data to the plot.
+
+abline()
+##adds one or more straight lines through the current plot.
+
+filter()
+##find rows/cases where conditions are true. 
+```
+
+## Data Analysis
+
+```{r}
+plot()
+##function for plotting of R objects.
+
+qplot()
+##creat a number of different types of plots using a consistent calling scheme
+
+xyplot()
+##plot pairs of variables
+
+pdf()
+##starts the graphics device driver for producing PDF graphics.
+
+dev.copy()
+##save plots in r
+
+dev.off()  
+##closes the specified plot (by default the current device) and if it is an imguR device, uploads the plots for web hosting
+
+title()
+##add labels to a plot
+
+set.seed()
+##creating simulations or random objects that can be reproduced.
+
+kmeans()
+##perform k-means clustering on a data matrix.
+
+image()
+##creates a grid of colored or gray-scale rectangles with colors corresponding to the values 
+
+ozone()
+##set a data frame.
+
+nrow()
+##return the number of rows 
+
+ncol()
+##return the number of columns 
+
+gap_stat()
+##estimating the Number of Clusters
+
+hclust()
+##hierarchical cluster analysis on a set of dissimilarities and methods for analyzing it.
+
+plot()
+##function for plotting of R objects.
+```
+
+
+
+
+
+
+
+
+
+
+
+
