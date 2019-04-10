@@ -1,0 +1,187 @@
+---
+title: "Analysis on U.S. Womens Work Force Participation"
+author: "Group 5"
+date: "Thursday, April 04, 2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+A major factor contributed to the U.S. labor force is the increase in labor force participation rate of women. We wanted to study what factors affect the women???s participation in labor force and how they are associated.
+
+Load the data set
+```{r}
+data(Mroz,package="carData")
+attach(Mroz)
+Mroz
+```
+
+```{r}
+library(xtable)
+library(ggplot2)
+library(htmlTable)
+```
+
+```{r,results='asis'}
+##see the data
+Mroz
+summary(Mroz)
+
+# Omit missing observations
+Mroz <- na.omit(Mroz)
+
+##tabulations for workforce data
+t1=table(lfp)
+t2=t1/sum(t1)*100
+t3=rbind('In labor Force(N)'=t1,'In labor Force(%)'=round(t2,1))
+t3
+
+
+barplot(t1)
+
+##Analysis between categorical variables
+
+##Hypo Q1
+##Is there an association between wife' college participation's education and her labor force participation?
+##Let's do the chi-square test to find out.
+wc_lfp_table=xtabs(~lfp+wc)
+chisq.test(wc_lfp_table)
+##p<0.05. We reject the H0. The p value suggests that there is a significant relationship between wife' college participation's education and her labor force participation.
+
+##Mosaic plot shows that there is a positive correlation between women's education and her labor force participation.
+library(vcd)
+mosaic(wc_lfp_table, shade=TRUE, legend=TRUE)
+
+##Hypo Q2
+##Is there an association between husband's education and women's labor force participation?
+hc_lfp_table=xtabs(~lfp+hc)
+chisq.test(hc_lfp_table)
+##p<!0.05. We fail to reject the H0. The p value suggests that there is not a significant relationship between husband' college participation and woman's labor force participation.
+
+##mosaic plot supports that there is no significant relationship between husband's education and women's college participation.
+mosaic(hc_lfp_table, shade=TRUE, legend=TRUE)
+
+##Analysis between categorical response variable and numerical predictors
+
+##Hypo Q3
+##Is there an association between women's labor force participation and family income excluding wife's contribution?
+##Let's exeucte one-way ANOVA to see.
+aov1 = aov(inc ~ wc)
+summary(aov1)
+##The results suggest that there is a correlation between women's labor force participation and family income excluding wife's contribution.
+
+
+##Let's visualize it
+boxplot(inc~wc)
+
+##Hypo Q4
+##Is there an association between women's labor force participation and her having kids younger than 6 years old?
+aov2 = aov(k5~ wc)
+summary(aov2)
+##The results suggest that there is a correlation between women's labor force participation and her having kids younger than 6 years old.
+
+##Hypo 5
+##Is there an association between women's labor force participation and her having kids between 6-18 years of age?
+aov3 = aov(k618~ wc)
+summary(aov3)
+##The results suggest that there is no correlation between women's labor force participation and her having kids between 6-18 years of age. 
+boxplot(k618~wc)
+
+##Hypo 6
+##Is there an association between women's labor force participation and her age?
+aov4 = aov(age~ wc)
+summary(aov4)
+##The results suggest that there is no correlation between women's labor force participation and her age.
+```
+****
+####Descriptive Analysis
+
+```{r, results='asis'}
+t1<- xtabs(~ k5 + lfp); t.k5 = prop.table(t1,1)*100
+t1<- xtabs(~ k618 + lfp); t.k618 = prop.table(t1,1)*100
+t.age<- tapply(age, lfp,mean)
+t1<- xtabs(~ wc + lfp);  t.wc = prop.table(t1,1)*100
+t1<- xtabs(~ hc + lfp);  t.hc = prop.table(t1,1)*100
+t.wifelogwage<- tapply(lwg, lfp,mean)
+t.faminc<- tapply(inc, lfp,mean)
+t5<-rbind(t.k5, t.k618, t.age, t.wc, t.hc, t.wifelogwage, t.faminc)
+t5<-round(t5,2)
+
+colnames(t5)<- c("not working", "working")
+rownames(t5)<-paste(c("k5-no child(%)", "1 child", paste0(2:3, " children"), "k618-no child(%)", "1 child", paste0(2:8, " children"),
+                    "wife's age", "wife college educated(%)",
+                    "wife did not attend college(%)", 
+                    "husband college educated(%)",
+                    "husband did not attend college(%)",
+                    "log of wife's wages",
+                    "family income excluding wife's(K)"))
+
+
+t5
+
+##Graphs
+
+barplot(t.k5, main="children under 6(%)",
+  xlab="WF Participation",
+  legend = rownames(t.k5))
+
+barplot(t.k618, main="children 6-18 years(%)",
+  xlab="WF Participation",
+  legend = rownames(t.k618))
+
+barplot(t.wc, main="wife's education (%)",
+  xlab="WF Participation",
+  legend = rownames(t.wc))
+
+barplot(t.wc, main="husband's education (%)",
+  xlab="WF Participation",
+  legend = rownames(t.hc))
+
+
+barplot(t.wifelogwage, main="wife's income",
+  xlab="WF Participation",
+  legend = rownames(t.wifelogwage))
+
+
+
+barplot(t.faminc, main="family income",
+  xlab="WF Participation",
+  legend = rownames(t.faminc))
+
+```
+###WF Participation Logit Model
+
+```{r}
+##We are interested in the determinants of women participation in labor force.
+
+library(MASS)
+library(nnet)
+
+
+labor_force <- glm(lfp ~ k5 + k618 + age+ wc + hc + lwg +inc, data=Mroz, 
+               family = binomial(link = "logit"))
+
+summary(labor_force)
+
+##Interpretation 
+##we have to take exponentials of the coefficients.
+
+
+```
+
+##LFP likelihood declines with younger children. (correct)(statistically significant for younger than 5)
+##LFP likelihood increases when husband is college educated.(not statistically significant)
+##LFP likelihood decreases with age.(correct)
+##LFP likelihood increases when wife is college educated.(correct)
+##LFP likelihood decreases with family income excluding wife???s.(correct)
+##LFP likelihood increases with woman???s wage.(correct)
+
+##Additional young children under age 5, decreases the odds for being employed by a factor of 0.231.
+##With an increase in age by one year, the odds for being employed decreases by a factor of 0.93.
+##The odds for being employed is 2.24 times higher if the woman has a college degree.
+##Additional 1K in income decreases the odds of being employed by 0.96.
+
+
+
+
+
