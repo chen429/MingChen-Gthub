@@ -1,0 +1,24 @@
+---
+title: "Final Report"
+author: "Ming Chen"
+date: "2019/4/16"
+output: html_document
+---
+
+##Final Report
+
+Github Link 
+https://github.com/chen429/MingChen-Gthub/tree/master/Final%20Report
+
+model:bike models
+category1: mountain, road
+category2: Elite Road, Cross Country Race, Endurance Road, Trail, Sport, Over Mountain, other.
+frame: Aluminum, Carbon
+price
+other sales data
+
+```{r}
+bikeVendors <- read.csv("~/Desktop/506/bikeVendors.csv")
+summary(bikeVendors)
+```
+
